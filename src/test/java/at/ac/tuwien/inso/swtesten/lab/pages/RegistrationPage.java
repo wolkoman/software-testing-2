@@ -33,6 +33,7 @@ public class RegistrationPage extends PageObject {
 	@FindBy(xpath = "//li[@aria-label='Menu']")
 	private WebElement menuButton;
 
+
 	public RegistrationPage(WebDriver driver) {
 		super(driver);
 	}

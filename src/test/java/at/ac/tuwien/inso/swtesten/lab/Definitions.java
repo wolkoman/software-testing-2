@@ -10,8 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Definitions implements En {
 
@@ -44,6 +43,14 @@ public class Definitions implements En {
 		When("I click the link labeled {string}", (String value) -> {
 			if(value.length() > 0)
 			externalPage = registrationPage.clickLink(value);
+		});
+		When("I enter a valid input", () -> {
+			registrationPage.fillFirstname("Vorname");
+			registrationPage.fillLastname("Nachname");
+			registrationPage.fillBirthday("01/02/2000");
+			registrationPage.setGender(RegistrationPage.Gender.Female);
+			registrationPage.setStudent(true);
+			registrationPage.setUniversity("Technische Universität Wien");
 		});
 		When("I enter {string} as a first name", (String value) -> {
 			if(value.length() > 0)
@@ -92,6 +99,24 @@ public class Definitions implements En {
 		});
 		Then("there should be a validation error", () -> {
 			assertTrue(registrationPage.isErroneous());
+		});
+		Then("the name should be {string}", (String value) -> {
+			assertEquals(value, successPage.getName());
+		});
+		Then("the name not should be {string}", (String value) -> {
+			assertNotEquals(value, successPage.getName());
+		});
+		Then("the birthday should be {string}", (String value) -> {
+			assertEquals(value, successPage.getBirthday());
+		});
+		Then("the university should be {string}", (String value) -> {
+			assertEquals(value, successPage.getUniversity());
+		});
+		Then("the acknowledgments should be {string}", (String value) -> {
+			assertEquals(value, successPage.getAcknowledgments());
+		});
+		Then("the gender should be {string}", (String value) -> {
+			assertEquals(value, successPage.getGender());
 		});
 	}
 }
